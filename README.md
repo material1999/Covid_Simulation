@@ -1,1 +1,1 @@
-# Covid_simulation
+# Covid_Simulation
