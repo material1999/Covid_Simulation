@@ -5,14 +5,16 @@ import graph.States;
 
 import java.util.*;
 
+import static javax.swing.UIManager.put;
+
 public class Variant {
 
     private String name;
     private double rValue;
-    private double[] stateDistribution;
+    private Map<States, Double> stateDistribution;
     private double initInfectedPercent;
 
-    public Variant(String name, double rValue, double[] stateDistribution, double initInfectedPercent) {
+    public Variant(String name, double rValue, Map<States, Double> stateDistribution, double initInfectedPercent) {
         this.name = name;
         this.rValue = rValue;
         this.stateDistribution = stateDistribution;
@@ -35,11 +37,11 @@ public class Variant {
         this.rValue = rValue;
     }
 
-    public double[] getStateDistribution() {
+    public Map<States, Double> getStateDistribution() {
         return stateDistribution;
     }
 
-    public void setStateDistribution(double[] stateDistribution) {
+    public void setStateDistribution(Map<States, Double> stateDistribution) {
         this.stateDistribution = stateDistribution;
     }
 
@@ -56,16 +58,30 @@ public class Variant {
         return "Variant{" +
                 "name='" + name + '\'' +
                 ", rValue=" + rValue +
-                ", stateDistribution=" + Arrays.toString(stateDistribution) +
+                ", stateDistribution=" + stateDistribution +
                 ", initInfectedPercent=" + initInfectedPercent +
-                '}';
+                "}\n";
     }
 
     public static ArrayList<Variant> loadVariants() {
         ArrayList<Variant> variants = new ArrayList<>();
-        variants.add(new Variant("Wuhan", 1.2, new double[]{0.3, 0.1, 0.1, 0.3, 0.2}, 2));
-        variants.add(new Variant("England", 2.3, new double[]{0.2, 0.1, 0.1, 0.2, 0.4}, 1));
+        variants.add(new Variant("Wuhan", 1.2, new TreeMap<>() {{
+            put(States.SYMPTOM_FREE, 0.3);
+            put(States.MILD, 0.1);
+            put(States.MODERATE, 0.1);
+            put(States.SEVERE, 0.3);
+            put(States.CRITICAL, 0.2);
+        }}, 2));
+        variants.add(new Variant("England", 2.3, new TreeMap<>() {{
+            put(States.SYMPTOM_FREE, 0.2);
+            put(States.MILD, 0.1);
+            put(States.MODERATE, 0.1);
+            put(States.SEVERE, 0.2);
+            put(States.CRITICAL, 0.4);
+        }}, 1));
+
         // TODO: fill with valid data and add more variants
+
         return variants;
     }
 
@@ -85,7 +101,17 @@ public class Variant {
             for (int i = 0; i < numberToInfect; i++) {
                 int randomIndex = numbers.get(0);
                 currentNode = nodeMap.get(Integer.toString(randomIndex));
-                currentNode.setState(States.INFECTED);
+                double tmp = 0;
+                double nextRand = rand.nextDouble();
+                Iterator<Map.Entry<States, Double>> itr = variant.getStateDistribution().entrySet().iterator();
+                while(itr.hasNext()) {
+                    Map.Entry<States, Double> entry = itr.next();
+                    tmp += entry.getValue();
+                    if (nextRand < tmp) {
+                        currentNode.setState(entry.getKey());
+                        break;
+                    }
+                }
                 currentNode.setVariant(variant);
                 initInfected.add(currentNode);
                 numbers.remove(0);

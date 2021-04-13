@@ -115,6 +115,7 @@ public class Node {
 	public void setInNeighbour(Set<Node> inNeighbour) {
 		this.inNeighbour = inNeighbour;
 	}
+
 	public void addInNeighbour(Node a) {
 		this.inNeighbour.add(a);
 	}
@@ -160,8 +161,8 @@ public class Node {
 	public String toString() {
 		return "Node{" +
 				"id='" + id + '\'' +
-				", state=" + state +
 				", variant=" + variant.getName() +
-				'}';
+				", state=" + state +
+				"}\n";
 	}
 }

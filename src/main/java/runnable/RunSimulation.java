@@ -41,7 +41,7 @@ public class RunSimulation {
 
 			// Set which nodes are infected at the beginning
 			initInfected = Variant.setInitInfected(network.getNodeMap(), variants);
-			System.out.println(initInfected);
+			System.out.println("\n" + initInfected);
 
 			// Output file with the results
 			File output = new File(Parameters.RESULTS_FOLDER + "simulation_" + i + ".txt");

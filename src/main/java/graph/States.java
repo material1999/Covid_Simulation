@@ -2,5 +2,9 @@ package graph;
 
 public enum States {
 	HEALTHY,
-	INFECTED;
-}
+	SYMPTOM_FREE,
+	MILD,
+	MODERATE,
+	SEVERE,
+	CRITICAL;
+};
