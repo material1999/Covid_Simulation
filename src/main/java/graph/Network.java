@@ -1,15 +1,15 @@
-package Graph;
+package graph;
 
 import java.util.*;
 
 public class Network {
 	
-	private Map<String, Node> nodemap;
+	private Map<String, Node> nodeMap;
 	private Set<Node> nodes;
 	private ArrayList<Edge> edges;
 	
 	public Network() {
-		this.nodemap = new HashMap<String,Node>();
+		this.nodeMap = new HashMap<String, Node>();
 		this.nodes = new LinkedHashSet<Node>();
 		this.edges = new ArrayList<Edge>();
 	}
@@ -19,14 +19,14 @@ public class Network {
 		Node out;
 
 		if (nodes.contains(a.getOut())) {
-			out = (Node) nodemap.get(a.getOut().getId());
+			out = (Node) nodeMap.get(a.getOut().getId());
 		} else {
 			nodes.add(a.getOut());
 			out = a.getOut();
 		}
 		
 		if (nodes.contains(a.getIn())) {
-			in = (Node) nodemap.get(a.getIn().getId());
+			in = (Node) nodeMap.get(a.getIn().getId());
 		} else {
 			nodes.add(a.getIn());
 			in = a.getIn();
@@ -36,8 +36,8 @@ public class Network {
 		a.setOut(out);
 
 		edges.add(a);
-		nodemap.put(in.getId(), in);
-		nodemap.put(out.getId(), out);
+		nodeMap.put(in.getId(), in);
+		nodeMap.put(out.getId(), out);
 
 		//UNDIRECTED
 		out.addNeighbour(in);
@@ -50,12 +50,12 @@ public class Network {
 		in.addInEdge(a);
 	}
 
-	public Map<String, Node> getNodemap() {
-		return nodemap;
+	public Map<String, Node> getNodeMap() {
+		return nodeMap;
 	}
 
-	public void setNodemap(Map<String, Node> nodemap) {
-		this.nodemap = nodemap;
+	public void setNodeMap(Map<String, Node> nodeMap) {
+		this.nodeMap = nodeMap;
 	}
 
 	public Set<Node> getNodes() {
@@ -74,9 +74,9 @@ public class Network {
 		this.edges = edges;
 	}
 	
-	public void notVisited() {
+	public void setHealthy() {
 		for (Node n: nodes) {
-			n.setState(States.NOTVISITED);
+			n.setState(States.HEALTHY);
 		}
 	}
 	
@@ -95,8 +95,8 @@ public class Network {
 	}
 
 	public Node getNode(String n) {
-		nodemap = this.getNodemap();
-		Node node = nodemap.get(n);
+		nodeMap = this.getNodeMap();
+		Node node = nodeMap.get(n);
 		return node;
 	}
 

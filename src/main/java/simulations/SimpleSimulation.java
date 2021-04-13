@@ -1,7 +1,7 @@
-package Simulations;
+package simulations;
 
 import java.util.*;
-import Graph.*;
+import graph.*;
 
 public class SimpleSimulation {
 

@@ -1,11 +1,11 @@
-package Reader;
+package reader;
 
 import java.io.FileReader;
 import java.io.IOException;
 
 import com.opencsv.CSVReader;
 
-import Graph.*;
+import graph.*;
 
 public class Read {
 

@@ -1,11 +1,13 @@
-package Runnable;
+package runnable;
 
-import Graph.Network;
-import Graph.Node;
-import Reader.Read;
-import Simulations.SimpleSimulation;
+import graph.Network;
+import graph.Node;
+import model.Variant;
+import reader.Read;
+import simulations.SimpleSimulation;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class RunSimulation {
@@ -16,23 +18,30 @@ public class RunSimulation {
 
 		LinkedList<Node> initInfected = new LinkedList<>();
 
-		//TODO: randomize, which nodes are infected at the beginning
+		// Create and store virus variants
+		ArrayList<Variant> variants = Variant.loadVariants();
+		System.out.println("\n" + variants);
 
 		// Console info
 		System.out.println("\nRunning COVID simulation ...");
 		System.out.println("\nParameters:");
-		System.out.println("name1: value1, name2: value2, ...\n");
+		System.out.println("name1: value1, name2: value2, ...");
 
 		// Run the COVID simulation for each file
 		//for (int i = 1; i <= Parameters.FILE_COUNT; i++) {
 		for (int i = 1; i <= 1; i++) {
+
+			System.out.println("\nStarted with file " + i + "\n");
 
 			// Path to the current network file
 			networkFilePath = Parameters.NETWORKS_FOLDER + i + "/edgeweighted.csv";
 
 			// Generate the network
 			Network network = Read.ReadCsv(networkFilePath);
-			System.out.println(network.getEdges());
+
+			// Set which nodes are infected at the beginning
+			initInfected = Variant.setInitInfected(network.getNodeMap(), variants);
+			System.out.println(initInfected);
 
 			// Output file with the results
 			File output = new File(Parameters.RESULTS_FOLDER + "simulation_" + i + ".txt");
@@ -41,14 +50,14 @@ public class RunSimulation {
 				// Open FileWriter
 				FileWriter fw = new FileWriter(output);
 
-				System.out.println("\nStarted with file " + i);
-
 				// Run the simulation on the current file
 				fw.write("Parameters:\n");
 				fw.write("name1: value1, name2: value2, ..." + "\n\n");
 
-				// TODO: call the simulation functions here (SimpleSimulation, ...)
+				// Call the SimpleSimulation function
 				SimpleSimulation.Simulation(network, initInfected, Parameters.SIM_SIZE);
+
+				// TODO: call other simulation functions here
 
 				// Close FileWriter
 				fw.close();
@@ -57,7 +66,7 @@ public class RunSimulation {
 				e.printStackTrace();
 			}
 
-			System.out.println("Done with file " + i);
+			System.out.println("\nDone with file " + i);
 		}
 
 		System.out.println("\nProgram finished successfully, press ENTER to exit ...");

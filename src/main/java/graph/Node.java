@@ -1,4 +1,6 @@
-package Graph;
+package graph;
+
+import model.Variant;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,6 +9,7 @@ import java.util.Set;
 public class Node {
 	private String id;
 	private States state;
+	private Variant variant;
 	private ArrayList<Edge> inList;
 	private ArrayList<Edge> outList;
 	private Set<Node> outNeighbour;
@@ -16,7 +19,8 @@ public class Node {
 	
 	public Node(String id) {
 		this.id = id;
-		this.state = States.NOTVISITED;
+		this.state = States.HEALTHY;
+		this.variant = null;
 		this.outList = new ArrayList<Edge>();
 		this.inList = new ArrayList<Edge>();
 		this.outNeighbour = new HashSet<Node>();
@@ -41,6 +45,14 @@ public class Node {
 		this.state = state;
 	}
 
+	public Variant getVariant() {
+		return variant;
+	}
+
+	public void setVariant(Variant variant) {
+		this.variant = variant;
+	}
+
 	public double getFv() {
 		return fv;
 	}
@@ -60,11 +72,11 @@ public class Node {
 		}
 	}
 
-	public ArrayList<Edge> getInlist() {
+	public ArrayList<Edge> getInList() {
 		return inList;
 	}
 
-	public void setInlist(ArrayList<Edge> inList) {
+	public void setInList(ArrayList<Edge> inList) {
 		this.inList = inList;
 	}
 
@@ -72,14 +84,14 @@ public class Node {
 		this.inList.add(e);
 	}
 
-	public ArrayList<Edge> getOutlist() {
+	public ArrayList<Edge> getOutList() {
 		return outList;
 	}
 
-	public void setOutlist(ArrayList<Edge> outList) {
+	public void setOutList(ArrayList<Edge> outList) {
 		this.outList = outList;
 	}
-	
+
 	public void addOutEdge(Edge e) {
 		this.outList.add(e);
 	}
@@ -146,7 +158,10 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", state=" + state + ", fv=" + fv + "]";
+		return "Node{" +
+				"id='" + id + '\'' +
+				", state=" + state +
+				", variant=" + variant.getName() +
+				'}';
 	}
-
 }

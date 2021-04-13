@@ -1,4 +1,4 @@
-package Runnable;
+package runnable;
 
 public class Parameters {
 
