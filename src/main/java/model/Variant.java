@@ -5,8 +5,6 @@ import graph.States;
 
 import java.util.*;
 
-import static javax.swing.UIManager.put;
-
 public class Variant {
 
     private String name;
@@ -103,9 +101,7 @@ public class Variant {
                 currentNode = nodeMap.get(Integer.toString(randomIndex));
                 double tmp = 0;
                 double nextRand = rand.nextDouble();
-                Iterator<Map.Entry<States, Double>> itr = variant.getStateDistribution().entrySet().iterator();
-                while(itr.hasNext()) {
-                    Map.Entry<States, Double> entry = itr.next();
+                for (Map.Entry<States, Double> entry : variant.getStateDistribution().entrySet()) {
                     tmp += entry.getValue();
                     if (nextRand < tmp) {
                         currentNode.setState(entry.getKey());
