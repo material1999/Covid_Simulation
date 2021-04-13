@@ -10,7 +10,7 @@ import Graph.*;
 public class Read {
 
 	public static Network ReadCsv(String filepath) {
-		Network network=new Network();
+		Network network = new Network();
 		CSVReader reader;
         try {
             reader = new CSVReader(new FileReader(filepath),';');

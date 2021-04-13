@@ -7,51 +7,22 @@ import java.util.Set;
 public class Node {
 	private String id;
 	private States state;
-	private ArrayList<Edge> inlist;
-	private ArrayList<Edge> outlist;   
-	private Set<Node> outneighbour;
+	private ArrayList<Edge> inList;
+	private ArrayList<Edge> outList;
+	private Set<Node> outNeighbour;
+	private Set<Node> inNeighbour;
 	private Set<Node> neighbour;
 	private double fv;
 	
 	public Node(String id) {
 		this.id = id;
 		this.state = States.NOTVISITED;
-		this.outlist = new ArrayList<Edge>();
-		this.inlist = new ArrayList<Edge>();
-		this.outneighbour = new HashSet<Node>();
+		this.outList = new ArrayList<Edge>();
+		this.inList = new ArrayList<Edge>();
+		this.outNeighbour = new HashSet<Node>();
+		this.inNeighbour = new HashSet<Node>();
 		this.neighbour = new HashSet<Node>();
 		this.fv = 0;
-	}
-
-	public ArrayList<Edge> getInlist() {
-		return inlist;
-	}
-
-	public void setInlist(ArrayList<Edge> inlist) {
-		this.inlist = inlist;
-	}
-	
-	public void addinEdge(Edge e) {
-		this.inlist.add(e);
-	}
-	
-	public double getFv() {
-		return fv;
-	}
-
-	public void addFv() {
-		this.fv++;
-	}
-	
-	public void setFv(double fv) {
-		this.fv = fv;
-	}
-	
-	public void finalizefv(int samplesize) {
-		this.fv = this.fv / (double)samplesize;
-		if (this.fv > 1.0) {
-			System.out.println("SZAR fv: "+ this.fv);
-		}
 	}
 
 	public String getId() {
@@ -70,28 +41,47 @@ public class Node {
 		this.state = state;
 	}
 
-	public ArrayList<Edge> getOutlist() {
-		return outlist;
+	public double getFv() {
+		return fv;
 	}
 
-	public void setOutlist(ArrayList<Edge> outlist) {
-		this.outlist = outlist;
+	public void setFv(double fv) {
+		this.fv = fv;
+	}
+
+	public void addFv() {
+		this.fv++;
+	}
+	
+	public void finalizefv(int samplesize) {
+		this.fv = this.fv / (double)samplesize;
+		if (this.fv > 1.0) {
+			System.out.println("SZAR fv: "+ this.fv);
+		}
+	}
+
+	public ArrayList<Edge> getInlist() {
+		return inList;
+	}
+
+	public void setInlist(ArrayList<Edge> inList) {
+		this.inList = inList;
+	}
+
+	public void addInEdge(Edge e) {
+		this.inList.add(e);
+	}
+
+	public ArrayList<Edge> getOutlist() {
+		return outList;
+	}
+
+	public void setOutlist(ArrayList<Edge> outList) {
+		this.outList = outList;
 	}
 	
 	public void addOutEdge(Edge e) {
-		this.outlist.add(e);
-	}
-
-	public Set<Node> getOutneighbour() {
-		return outneighbour;
-	}
-
-	public void setOutneighbour(Set<Node> outneighbour) {
-		this.outneighbour = outneighbour;
-	}
-	
-	public void addOutNeighbour(Node a) {
-		this.outneighbour.add(a);
+		this.outList.add(e);
 	}
 
 	public Set<Node> getNeighbour() {
@@ -101,9 +91,32 @@ public class Node {
 	public void setNeighbour(Set<Node> neighbour) {
 		this.neighbour = neighbour;
 	}
-	
+
 	public void addNeighbour(Node a) {
 		this.neighbour.add(a);
+	}
+
+	public Set<Node> getInNeighbour() {
+		return inNeighbour;
+	}
+
+	public void setInNeighbour(Set<Node> inNeighbour) {
+		this.inNeighbour = inNeighbour;
+	}
+	public void addInNeighbour(Node a) {
+		this.inNeighbour.add(a);
+	}
+
+	public Set<Node> getOutNeighbour() {
+		return outNeighbour;
+	}
+
+	public void setOutNeighbour(Set<Node> outNeighbour) {
+		this.outNeighbour = outNeighbour;
+	}
+	
+	public void addOutNeighbour(Node a) {
+		this.outNeighbour.add(a);
 	}
 
 	@Override

@@ -21,16 +21,18 @@ public class RunSimulation {
 		// Console info
 		System.out.println("\nRunning COVID simulation ...");
 		System.out.println("\nParameters:");
-		System.out.println("name1: value1, name2: value2, ...");
+		System.out.println("name1: value1, name2: value2, ...\n");
 
 		// Run the COVID simulation for each file
-		for (int i = 1; i <= Parameters.FILE_COUNT; i++) {
+		//for (int i = 1; i <= Parameters.FILE_COUNT; i++) {
+		for (int i = 1; i <= 1; i++) {
 
 			// Path to the current network file
 			networkFilePath = Parameters.NETWORKS_FOLDER + i + "/edgeweighted.csv";
 
 			// Generate the network
 			Network network = Read.ReadCsv(networkFilePath);
+			System.out.println(network.getEdges());
 
 			// Output file with the results
 			File output = new File(Parameters.RESULTS_FOLDER + "simulation_" + i + ".txt");

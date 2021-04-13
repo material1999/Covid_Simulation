@@ -19,20 +19,25 @@ public class Network {
 		Node out;
 
 		if (nodes.contains(a.getOut())) {
-			out = (Node)nodemap.get(a.getOut().getId());
+			out = (Node) nodemap.get(a.getOut().getId());
 		} else {
 			nodes.add(a.getOut());
 			out = a.getOut();
 		}
 		
 		if (nodes.contains(a.getIn())) {
-			in = (Node)nodemap.get(a.getIn().getId());
+			in = (Node) nodemap.get(a.getIn().getId());
 		} else {
 			nodes.add(a.getIn());
 			in = a.getIn();
 		}
+
 		a.setIn(in);
 		a.setOut(out);
+
+		edges.add(a);
+		nodemap.put(in.getId(), in);
+		nodemap.put(out.getId(), out);
 
 		//UNDIRECTED
 		out.addNeighbour(in);
@@ -41,11 +46,8 @@ public class Network {
 		//DIRECTED
 		out.addOutNeighbour(in);
 		out.addOutEdge(a);
-		in.addinEdge(a);
-		
-		edges.add(a);
-		nodemap.put(in.getId(), in);
-		nodemap.put(out.getId(),out);
+		in.addInNeighbour(out);
+		in.addInEdge(a);
 	}
 
 	public Map<String, Node> getNodemap() {

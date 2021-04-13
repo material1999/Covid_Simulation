@@ -1,6 +1,6 @@
 package Graph;
 
-public class Edge{
+public class Edge {
 	
 	private Node out;
 	private Node in;
