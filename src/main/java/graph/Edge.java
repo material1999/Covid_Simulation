@@ -48,7 +48,7 @@ public class Edge {
 
 	@Override
 	public String toString() {
-		return "Edge [out=" + out + ", in=" + in + ", weight=" + weight + ", alive=" + alive + "]";
+		return "Edge [out=" + out + ", in=" + in + ", weight=" + weight + ", alive=" + alive + "]\n";
 	}
 	
 }
