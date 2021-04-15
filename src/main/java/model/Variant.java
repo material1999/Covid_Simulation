@@ -88,7 +88,7 @@ public class Variant {
         int numberToInfect;
         Node currentNode;
         ArrayList<Integer> numbers = new ArrayList<>();
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= nodeMap.size(); i++) {
             numbers.add(i);
         }
         Random rand = new Random();
